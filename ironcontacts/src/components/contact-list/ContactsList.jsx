@@ -1,26 +1,40 @@
-import React from 'react'
-import contactData from '../../contacts.json'
+import React, { useState } from 'react'
+import contactsData from '../../contacts.json'
 
 function ContactsList() {
+  const [contacts, setContacts] = useState(contactsData.slice(0, 10));
+
+  const handleAddRandomContact = () => {
+    const random =
+    contactsData[Math.floor(contactsData.length * Math.random())];
+
+    setContacts([random, ...contacts]);
+
+
+  }
   return (
     <div>
+      <button onClick={handleAddRandomContact} className='btn btn-sm btn-primary'>Add random contact</button>
       <table className="table">
         <thead>
           <tr>
             <th>Picture</th>
             <th>Name</th>
             <th>Popularity</th>
+            <th>Won Oscar</th>
+            
           </tr>
         </thead>
 
         <tbody>
-          {contactData.slice(0, 5).map((contact) => (
+          {contacts.map((contact) => (
             <tr>
             <td>
               <img width="100px" src={contact.pictureUrl} alt="pictureUrl" />
             </td>
             <td>{contact.name}</td>
-            <td>{contact.popularity}</td>
+            <td>{contact.popularity.toFixed(2)}</td>
+            <td>{contact.wonOscar && "🏆"}</td>
           </tr>
           
           ))}
