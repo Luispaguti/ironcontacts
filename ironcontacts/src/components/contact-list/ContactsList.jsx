@@ -11,10 +11,16 @@ function ContactsList() {
     setContacts([random, ...contacts]);
 
 
+  };
+
+  
+  const handleSortByPopularity = () => {
+    setContacts([...contacts.sort((a, b) => b.popularity - a.popularity)]);
   }
   return (
     <div>
       <button onClick={handleAddRandomContact} className='btn btn-sm btn-primary'>Add random contact</button>
+      <button onClick={handleSortByPopularity} className='btn btn-sm btn-primary'>Sort by popularity</button>
       <table className="table">
         <thead>
           <tr>
@@ -28,7 +34,7 @@ function ContactsList() {
 
         <tbody>
           {contacts.map((contact) => (
-            <tr>
+            <tr key={contact.id}>
             <td>
               <img width="100px" src={contact.pictureUrl} alt="pictureUrl" />
             </td>
