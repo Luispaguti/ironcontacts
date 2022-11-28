@@ -17,10 +17,17 @@ function ContactsList() {
   const handleSortByPopularity = () => {
     setContacts([...contacts.sort((a, b) => b.popularity - a.popularity)]);
   }
+
+  //para borrar tengo que cambiar el estado, si quiero que se repinte el estado otra vez tengo que cambiar ele stado, el estado tiene que ser 
+  // el mismo array que era antes sin el elemento que quiero borrar 
+
+  const handleDelete = (contact) => {
+    setContacts(contacts.filter((c) => contact !== c));
+  }
   return (
     <div>
-      <button onClick={handleAddRandomContact} className='btn btn-sm btn-primary'>Add random contact</button>
-      <button onClick={handleSortByPopularity} className='btn btn-sm btn-primary'>Sort by popularity</button>
+      <button onClick={handleAddRandomContact} className='btn btn-sm btn-primary me-2'>Add random contact</button>
+      <button onClick={handleSortByPopularity} className='btn btn-sm btn-warning'>Sort by popularity</button>
       <table className="table">
         <thead>
           <tr>
@@ -28,6 +35,7 @@ function ContactsList() {
             <th>Name</th>
             <th>Popularity</th>
             <th>Won Oscar</th>
+            <th>Actions</th>
             
           </tr>
         </thead>
@@ -41,6 +49,9 @@ function ContactsList() {
             <td>{contact.name}</td>
             <td>{contact.popularity.toFixed(2)}</td>
             <td>{contact.wonOscar && "🏆"}</td>
+            <td>
+              <button onClick={ () => handleDelete(contact)} className='btn btn-danger btn-sm'>Delete</button>
+            </td>
           </tr>
           
           ))}
